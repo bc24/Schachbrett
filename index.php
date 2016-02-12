@@ -73,17 +73,19 @@
             background-attachment: fixed;
             background-position:bottom right;
             background-color: #1A030B;
-            background-image: url(./hintergrund.jpg);
+            background-image: url(hintergrund.jpg);
             margin-left: 0px;
             margin-top: 0px;
             margin-right: 0px;
             margin-bottom: 0px;
-            text-
+            
             
         
             a:link {
             color: #FFFFFF;
             }
+.glas {
+}
         
             a:visited {
             color: #FFFFFF;
@@ -104,38 +106,89 @@
             }
             
             table { border:3px solid #0073ED; }
-            table tr td { width:20px;height:20px; }
-            td { width: 20px; height: 20px; border: thin solid; }
-            tr:nth-child(odd) td:nth-child(odd) {background: black;}
-            tr:nth-child(even) td:nth-child(even) {background: black;}
-    
-            
+            table tr td { width:20px;height:50px; }
+            td { width: 50px; height: 50px; border: thin solid; }
+            tr:nth-child(odd) td:nth-child(odd) {background: red;}
+            tr:nth-child(even) td:nth-child(even) {background: red;}
+			table th {background: red;}
+			
+    		tr:nth-child(1) td:nth-child(n),tr:last-child td:nth-child(n),
+			tr:nth-child(n) td:nth-child(1),tr:nth-child(n) td:last-child
+			{
+				background-color: #CBC5C5;
+			}
+				
             
             body,td,th {
-        color: #FFFFFF;
-        font-family: Arial;
-    }
+			color: #FFFFFF;
+			font-family: Arial;
+			font-weight: 300;
+			height: 50%;
+			}
+			
+			.glas{
+			-moz-box-shadow: inset 0 0 15px 5px #DDD;
+			-webkit-box-shadow: inset 0 0 15px 5px #DDDDE5;
+			box-shadow: inset 0 0 15px 5px #DDD;
+			border-radius: 40px;
+			-moz-border-radius: 40px;
+			-webkit-border-radius: 40px;
+			width: 500px; height: 360px;
+			}
+			
+			a{
+			color:#FFFFFF;
+			text-decoration:none;
+			}
+			a:visited{
+			color:#FFFFFF;
+			text-decoration: none;	
+			}
+			 a:active{
+			color:#FFFFFF;
+			text-decoration: none;	
+			}
+			a:hover{
+			color:#CC5200;
+			text-decoration:underline;	
+			}
+			 a:focus{
+				color:#CC5200;
+			text-decoration: none;	
+			}
+			
             </style>
         <title>Franks Schach</title>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        
+        <script type="text/javascript">
+		function taste (t) {
+		if (!t)
+		  t = window.event;
+		  if ((t.type && t.type == "contextmenu") || 
+			(t.button && t.button == 2) || (t.which && t.which == 3)) {
+			if (window.opera)
+			  window.alert("Speichern nicht erlaubt.");
+			  return false;
+		  }
+		}
+		if (document.layers)
+		  document.captureEvents(Event.MOUSEDOWN);
+		  document.onmousedown = taste;
+		  document.oncontextmenu = taste;
+	   </script>
         
         </head>
-<div class="uhr"><h1>Heute ist der <?php $aktuellesDatum=date('d.m.Y') ;$aktuelleUhrzeit=date('H:i'); echo $aktuellesDatum,"&nbsp;um&nbsp;",$aktuelleUhrzeit; ?></h1></div>
+        <div class="glas" border-radius>
+<div class="uhr"><center>
+  <h1><span style="font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif">Franks Schachbrett</span><br>
+    Heute ist der <?php $aktuellesDatum=date('d.m.Y') ;$aktuelleUhrzeit=date('H:i'); echo $aktuellesDatum,"&nbsp;um&nbsp;",$aktuelleUhrzeit; ?> Uhr</h1></center></div>
         
-    <h1>Schach</h1>
-    <div><audio controls loop >
+    
+    <div><center><audio controls loop >
       <source src="Sunny.mp3" type="audio/mp3">
-    </audio></div>
+    </audio></center></div>
         
-        <?php
+        <center><?php
 
             include "userbefragung.php";
             include "spielfeld.php";
@@ -165,10 +218,19 @@
                 else {
                     $farbe = 'schwarz';
                 }
-            echo "<br>Dies ist Ihr $zaehler. Zug und es zieht $farbe";
+            echo "<br>Dies ist Ihr $zaehler. Zug und es ist $farbe dran!";
+			echo '<br>2016 by. <a href="http://frank-panzer.de" title="Frank Panzer" target="_blank" id="copy">Frank Panzer</a>';
 
-        ?>    
+        ?>
 
+			<form name="zaehler" action='' method='Get' >
+        
+            <input type='submit' value='Zug ausführen'>
+            <input type='hidden' name='transportfeld' value="<?php echo $_SESSION['zaehler'] ?>" >
+        
+       		</form>
+        </center>
+</div>
     <div id="spielfeld">
             <?php
                 $zahl = -1;
@@ -200,15 +262,9 @@
                     echo '</tr>';
                 }
                 echo '</table>';
-            ?><br>2016 by. <a href="http://frank-panzer.de" title="Frank Panzer" target="_blank" id="copy">Frank Panzer</a></div>
-
-        <form name="zaehler" action='' method='Get' >
-        
-            <input type='submit' value='Weiter'>
-            <input type='hidden' name='transportfeld' value="<?php echo $_SESSION['zaehler'] ?>" >
-        
-        </form>
-    
+				
+            ?></div></div>
+    	</div>
     </body>
     
 </html>

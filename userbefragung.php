@@ -2,7 +2,7 @@
     function userbefragung () {
         echo "<div id='user'>
                 <form name = 'usereingabe' action = 'index.php' method = 'get'>
-                    <input type = 'submit' value = 'Weiter'><br>
+                    <input type = 'submit' value = 'Neu beginnen'><br>
                             
                         Von<br>
                                 
